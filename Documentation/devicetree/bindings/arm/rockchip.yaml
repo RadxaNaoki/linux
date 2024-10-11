@@ -910,6 +910,11 @@ properties:
           - const: radxa,rock-5c
           - const: rockchip,rk3588s
 
+      - description: Radxa ROCK 5T
+        items:
+          - const: radxa,rock-5t
+          - const: rockchip,rk3588
+
       - description: Radxa ROCK S0
         items:
           - const: radxa,rock-s0
