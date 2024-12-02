@@ -1,0 +1,118 @@
+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+/*
+ * Copyright (c) 2024 Radxa Computer (Shenzhen) Co., Ltd.
+ */
+
+/dts-v1/;
+
+#include "rk3588-rock-5.dtsi"
+
+/ {
+	model = "Radxa ROCK 5B+";
+	compatible = "radxa,rock-5b-plus", "rockchip,rk3588";
+
+	analog-sound {
+		hp-det-gpios = <&gpio1 RK_PD5 GPIO_ACTIVE_HIGH>;
+	};
+
+	regulator-vcc3v3-wf {
+		gpios = <&gpio1 RK_PD2 GPIO_ACTIVE_HIGH>;
+	};
+
+	regulator-vcc5v-usb {
+		gpios = <&gpio1 RK_PA1 GPIO_ACTIVE_HIGH>;
+	};
+
+	regulator-vcc-5v {
+		regulator-always-on;
+		regulator-boot-on;
+	};
+
+	rfkill {
+		label = "rfkill-wlan";
+		shutdown-gpios = <&gpio4 RK_PA2 GPIO_ACTIVE_HIGH>;
+	};
+
+	rfkill-bt {
+		label = "rfkill-bt";
+	};
+};
+
+&i2c1 {
+	eeprom@50 {
+		compatible = "belling,bl24c16a", "atmel,24c16";
+		reg = <0x50>;
+		pagesize = <16>;
+		vcc-supply = <&vcc_3v3_s3>;
+	};
+};
+
+&pcie30phy {
+	data-lanes = <1 1 2 2>;
+};
+
+&pcie3x2 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&pcie30x2_perstn_m1>;
+	reset-gpios = <&gpio4 RK_PB0 GPIO_ACTIVE_HIGH>;
+	vpcie3v3-supply = <&vcc3v3_pcie30_1>;
+	status = "okay";
+};
+
+&pcie3x4 {
+	num-lanes = <2>;
+};
+
+&pinctrl {
+	pcie2 {
+		ekey_en: ekey-en {
+			rockchip,pins = <1 RK_PD2 RK_FUNC_GPIO &pcfg_pull_none>;
+		};
+	};
+
+	pcie3 {
+		pcie30x2_perstn_m1: pcie30x4-perstn-m1 {
+			rockchip,pins = <4 RK_PB0 RK_FUNC_GPIO &pcfg_pull_none>;
+		};
+	};
+
+	sound {
+		hp_detect: hp-detect {
+			rockchip,pins = <1 RK_PD5 RK_FUNC_GPIO &pcfg_pull_none>;
+		};
+	};
+
+	usb {
+		usb_host_pwren_h: usb-host-pwren-h {
+			rockchip,pins = <1 RK_PA1 RK_FUNC_GPIO &pcfg_pull_none>;
+		};
+	};
+};
+
+&u2phy0_otg {
+	phy-supply = <&vbus_typec0>;
+};
+
+&u2phy1_otg {
+	phy-supply = <&vcc5v_usb>;
+};
+
+&u2phy2_host {
+	/* connected to USB hub, which is powered by vcc_5v */
+	phy-supply = <&vcc_5v>;
+};
+
+&usbc0 {
+	status = "okay";
+};
+
+&usbc0_con {
+	power-role = "source";
+	source-pdos =
+		<PDO_FIXED(5000, 3000, PDO_FIXED_USB_COMM)>;
+};
+
+&usbdp_phy0 {
+	sbu1-dc-gpios = <&gpio0 RK_PC4 GPIO_ACTIVE_HIGH>;
+	sbu2-dc-gpios = <&gpio0 RK_PC5 GPIO_ACTIVE_HIGH>;
+};
