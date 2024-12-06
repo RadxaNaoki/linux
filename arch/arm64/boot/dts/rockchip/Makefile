@@ -25,6 +25,7 @@ DTC_FLAGS_rk3568-rock-3b := -@
 DTC_FLAGS_rk3588-rock-5-itx := -@
 DTC_FLAGS_rk3588-rock-5b := -@
 DTC_FLAGS_rk3588-rock-5b-plus := -@
+DTC_FLAGS_rk3588-rock-5t := -@
 DTC_FLAGS_rk3588s-radxa-e52c := -@
 DTC_FLAGS_rk3588s-rock-5a := -@
 DTC_FLAGS_rk3588s-rock-5c := -@
