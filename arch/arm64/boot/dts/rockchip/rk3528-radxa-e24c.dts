@@ -212,12 +212,12 @@
 		speed = <1000>;
 	};
 };
-
+/*
 &gpu {
 	mali-supply = <&vdd_logic>;
 	status = "okay";
 };
-
+*/
 &i2c0 {
 	pinctrl-names = "default";
 	pinctrl-0 = <&i2c0m0_xfer>;
@@ -554,7 +554,7 @@
 	vqmmc-supply = <&vccio_sd>;
 	status = "okay";
 };
-
+/*
 &sfc {
 	pinctrl-names = "default";
 	pinctrl-0 = <&fspi_csn0>, <&fspi_pins>;
@@ -569,13 +569,13 @@
 		vcc-supply = <&vcc1v8_emmc>;
 	};
 };
-
+*/
 &uart0 {
 	pinctrl-names = "default";
 	pinctrl-0 = <&uart0m0_xfer>;
 	status = "okay";
 };
-
+/*
 &usb_host0_ehci {
 	status = "okay";
 };
@@ -600,3 +600,4 @@
 &usb2phy_otg {
 	status = "okay";
 };
+*/
